@@ -19,6 +19,21 @@ const UserCard = styled.section`
   margin: .1%;
   width: 100px;
 
+  h1,h5,p {
+    font-family: 'Barlow Condensed'
+  }
+
+
+  h1 {
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  h5 {
+    font-size: 1.5em;
+    margin: 0;
+  }
+
 `;
 
 const UserCardButtonsContainer = styled.section`
