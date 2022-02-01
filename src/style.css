@@ -1,0 +1,10 @@
+h1,
+p {
+  font-family: Lato;
+}
+
+.card-button {
+  cursor: pointer;
+  padding: 0.5em;
+  border-radius: 7px;
+}
