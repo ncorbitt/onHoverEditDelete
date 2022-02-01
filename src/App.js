@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+
+import { PersonNote } from '@styled-icons/fluentui-system-filled/PersonNote';
+import { PersonDelete } from '@styled-icons/fluentui-system-filled/PersonDelete';
 
 const UserCard = styled.section`
   display: flex;
@@ -23,21 +27,18 @@ const UserCardButtonsContainer = styled.section`
   flex: 1 1 auto;
 `;
 
-const UserCardButtons = styled.section`
+const UserCardButtons = styled.span`
   position: absolute;
   flex: 1 1 auto;
-
 `;
 
-const CardEdit = styled.p`
+const CardEdit = styled.span`
   margin-right: 10px;
-  background-color: lightBlue;
-  color: darkBlue
+  color: darkBlue;
 `;
 
-const CardDelete = styled.p`
-  background-color: darkRed;
-  color: white;
+const CardDelete = styled.section`
+  color:  darkRed;
 `;
 
 export default function App() {
@@ -54,21 +55,25 @@ function Users() {
       name: 'Etan Torbict',
       title: 'Full Stack Developer',
       years: 3,
+      id: uuidv4(),
     },
     {
       name: 'Maryam Torbict',
       title: 'UI/UX Developer',
       years: 3,
+      id: uuidv4(),
     },
     {
       name: 'Atyana Torbict',
       title: 'UI/UX Developer',
       years: 1,
+      id: uuidv4(),
     },
     {
       name: 'Ban Torbict',
       title: 'Game Developer',
       years: 1,
+      id: uuidv4(),
     },
   ]);
 
@@ -76,23 +81,37 @@ function Users() {
     const [hovering, setHovering] = useState(false);
     useEffect(() => {}, [hovering]);
 
+    const CardEditFun = ({ name }) => {
+      return (
+        <CardEdit id="card-edit" className="card-button" title="edit">
+          <PersonNote size="24" />
+        </CardEdit>
+      );
+    };
+
+    const CardDeleteFun = ({ name }) => {
+      return (
+        <CardDelete id="card-delete" className="card-button" title="delete">
+          <PersonDelete size="24" />
+        </CardDelete>
+      );
+    };
+
     return (
       <UserCard
-        className="user-card"
+        key={u.id}
+        className="user-card font"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
         <UserCardButtonsContainer>
           <UserCardButtons
             className="buttons"
-            style={{ display: hovering ? 'flex' : 'none' }}
+            // style={{ display: hovering ? 'flex' : 'none' }}
+            style={{ display: 'flex' }}
           >
-            <CardEdit id="card-edit" className="card-button">
-              Edit
-            </CardEdit>
-            <CardDelete id="card-delete" className="card-button">
-              Delete
-            </CardDelete>
+            <CardEditFun name="Edit" />
+            <CardDeleteFun name="Delete" />
           </UserCardButtons>
         </UserCardButtonsContainer>
 
@@ -104,7 +123,7 @@ function Users() {
   }
 
   return (
-    <section style={{ width: '80%', margin: '0 auto' }}>
+    <section style={{ width: '80%', margin: '0 auto' }} className="font">
       <h1>Users</h1>
       <section
         style={{

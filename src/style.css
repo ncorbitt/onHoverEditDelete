@@ -1,10 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap');
+
 h1,
 p {
   font-family: Lato;
 }
 
+.font {
+  font-family: 'Barlow Condensed';
+}
+
 .card-button {
   cursor: pointer;
-  padding: 0.5em;
   border-radius: 7px;
+  position: relative;
+  top: 12px;
 }
