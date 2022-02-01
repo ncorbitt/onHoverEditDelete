@@ -122,8 +122,8 @@ function Users() {
         <UserCardButtonsContainer>
           <UserCardButtons
             className="buttons"
-            // style={{ display: hovering ? 'flex' : 'none' }}
-            style={{ display: 'flex' }}
+            style={{ display: hovering ? 'flex' : 'none' }}
+            // style={{ display: 'flex' }}
           >
             <CardEditFun name="Edit" />
             <CardDeleteFun name="Delete" />
