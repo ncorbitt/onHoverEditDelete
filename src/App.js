@@ -92,23 +92,39 @@ function Users() {
       id: uuidv4(),
     },
   ]);
+  useEffect(() => {}, [users]);
 
   function User(u) {
     const [hovering, setHovering] = useState(false);
     useEffect(() => {}, [hovering]);
 
-    const CardEditFun = ({ name }) => {
+    function editUser(id) {
+      let _user = users.filter((user) => user.id === id);
+      let user = _user[0];
+      console.log('edit', user.name);
+    }
+
+    function removeUser(id) {
+      return setUser((prevUsers) => {
+        let _updatedUsers = users.filter((user) => user.id !== id);
+        let updatedUsers = [..._updatedUsers];
+        console.log(updatedUsers);
+        return updatedUsers;
+      });
+    }
+
+    const CardEditFun = ({ name, user }) => {
       return (
         <CardEdit id="card-edit" className="card-button" title="edit">
-          <PersonNote size="24" />
+          <PersonNote size="24" onClick={() => editUser(user.id)} />
         </CardEdit>
       );
     };
 
-    const CardDeleteFun = ({ name }) => {
+    const CardDeleteFun = ({ name, user }) => {
       return (
         <CardDelete id="card-delete" className="card-button" title="delete">
-          <PersonDelete size="24" />
+          <PersonDelete size="24" onClick={() => removeUser(user.id)} />
         </CardDelete>
       );
     };
@@ -126,8 +142,8 @@ function Users() {
             style={{ display: hovering ? 'flex' : 'none' }}
             // style={{ display: 'flex' }}
           >
-            <CardEditFun name="Edit" />
-            <CardDeleteFun name="Delete" />
+            <CardEditFun name="Edit" user={u} />
+            <CardDeleteFun name="Delete" user={u} />
           </UserCardButtons>
         </UserCardButtonsContainer>
 
