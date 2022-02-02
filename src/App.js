@@ -59,14 +59,22 @@ const CardDelete = styled.section`
 
 export default function App() {
   return (
-    <div>
+    <div
+      className="app"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '98vh',
+      }}
+    >
       <Users />
     </div>
   );
 }
 
 function Users() {
-  const [users, setUser] = useState([
+  const [allUsers, setUser] = useState([
     {
       name: 'Etan Torbict',
       title: 'Full Stack Developer',
@@ -91,26 +99,42 @@ function Users() {
       years: 1,
       id: uuidv4(),
     },
+    {
+      name: 'Mac David',
+      title: 'Game Developer',
+      years: 2,
+      id: uuidv4(),
+    },
   ]);
-  useEffect(() => {}, [users]);
+
+  // const [allUsers, setUser] = useState([]);
+  useEffect(() => {}, [allUsers]);
+
+  // const [hovering, setHovering] = useState(false);
+  // useEffect(() => {}, [hovering]);
 
   function User(u) {
-    const [hovering, setHovering] = useState(false);
-    useEffect(() => {}, [hovering]);
+    // const [hovering, setHovering] = useState(false);
+    // useEffect(() => {}, [hovering]);
 
-    function editUser(id) {
-      let _user = users.filter((user) => user.id === id);
-      let user = _user[0];
-      console.log('edit', user.name);
+    function setHovering(value, id) {
+      if (value === true) {
+        const user = document.getElementById(id);
+        user.style.display = 'flex';
+      } else {
+        const user = document.getElementById(id);
+        user.style.display = 'none';
+      }
     }
 
     function removeUser(id) {
-      return setUser((prevUsers) => {
-        let _updatedUsers = users.filter((user) => user.id !== id);
-        let updatedUsers = [..._updatedUsers];
-        console.log(updatedUsers);
-        return updatedUsers;
-      });
+      setUser((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    }
+
+    function editUser(id) {
+      let _user = allUsers.filter((user) => user.id === id);
+      let user = _user[0];
+      console.log('edit', user.name);
     }
 
     const CardEditFun = ({ name, user }) => {
@@ -132,14 +156,16 @@ function Users() {
     return (
       <UserCard
         key={u.id}
+        id={u.name}
         className="user-card font"
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
+        onMouseEnter={(e) => setHovering(true, u.id)}
+        onMouseLeave={(e) => setHovering(false, u.id)}
       >
         <UserCardButtonsContainer>
           <UserCardButtons
+            id={u.id}
             className="buttons"
-            style={{ display: hovering ? 'flex' : 'none' }}
+            style={{ display: 'none' }}
             // style={{ display: 'flex' }}
           >
             <CardEditFun name="Edit" user={u} />
@@ -154,17 +180,51 @@ function Users() {
     );
   }
 
-  return (
-    <section style={{ width: '80%', margin: '0 auto' }} className="font">
-      <h1>Users</h1>
+  function NoUsers() {
+    return (
       <section
+        style={{
+          background: '#d3d3d38f',
+          width: '100%',
+          height: '98vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <h1 style={{ color: 'grey', fontSize: '7em', margin: 0 }}>NO USERS</h1>
+        <p style={{ color: 'grey', fontSize: '3em' }}>Add some ...</p>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      className="card-main"
+      style={{
+        width: '80%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '0px auto',
+        fontFamily: 'Barlow Condensed',
+      }}
+    >
+      <section
+        className="card-container"
         style={{
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
+          marginBottom: 30,
         }}
       >
-        {users.map((user) => User(user))}
+        {allUsers.length === 0 ? (
+          <NoUsers />
+        ) : (
+          allUsers.map((user) => User(user))
+        )}
       </section>
     </section>
   );
