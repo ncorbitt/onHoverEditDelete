@@ -1,10 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 .card-button {
   cursor: pointer;
   border-radius: 7px;
   position: relative;
   top: 0px;
+}
+
+.linear-pink-purple {
+  background: linear-gradient(180deg, pink, purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.plus-sign:hover {
+  opacity: 0.5;
+}
+
+.add-a-developer-box {
+  display: flex;
+  width: 15%;
+  margin: 30px 0px;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  margin-left: 83%;
+  border: 3px solid pink;
+  height: 100px;
+  border-radius: 7;
 }
 
 @media (max-width: 630px) {

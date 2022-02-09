@@ -6,17 +6,29 @@ import { v4 as uuidv4 } from 'uuid';
 import { PersonNote } from '@styled-icons/fluentui-system-filled/PersonNote';
 import { PersonDelete } from '@styled-icons/fluentui-system-filled/PersonDelete';
 
+const colors = {
+  black: '#000000',
+  purple: '#5800FF',
+  pink: '#E900FF',
+  yellow: '#FFC600',
+};
+
+const AppContainer = styled.section`
+
+`;
+
 const UserCard = styled.section`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   flex: 1 1 auto;
   min-width:200px;
-  border: 3px solid black;
+  // border: 3px solid pink;
+  box-shadow: 0px 0px 1px 1px rgb(0,0,0, 0.4);
   border-radius: 7px;
   padding: 1em;
   cursor: pointer;
-  margin: .1%;
+  margin: .9%;
   width: 100px;
 
   h1,h5,p {
@@ -56,23 +68,6 @@ const CardEdit = styled.span`
 const CardDelete = styled.section`
   color:  darkRed;
 `;
-
-export default function App() {
-  return (
-    <div
-      className="app"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '98vh',
-      }}
-    >
-      <Users />
-    </div>
-  );
-}
-
 function Users() {
   const [allUsers, setUser] = useState([
     {
@@ -107,24 +102,19 @@ function Users() {
     },
   ]);
 
+  const hoveringStyles = {
+    textShadow: `3px 3px 10px ${colors.pink}`,
+  };
+
   // const [allUsers, setUser] = useState([]);
   useEffect(() => {}, [allUsers]);
 
-  // const [hovering, setHovering] = useState(false);
-  // useEffect(() => {}, [hovering]);
+  function User({ u }) {
+    const [hovering, isHovering] = useState(false);
+    useEffect(() => {}, [hovering]);
 
-  function User(u) {
-    // const [hovering, setHovering] = useState(false);
-    // useEffect(() => {}, [hovering]);
-
-    function setHovering(value, id) {
-      if (value === true) {
-        const user = document.getElementById(id);
-        user.style.display = 'flex';
-      } else {
-        const user = document.getElementById(id);
-        user.style.display = 'none';
-      }
+    function setHovering(value, u) {
+      value === true ? isHovering(true) : isHovering(false);
     }
 
     function removeUser(id) {
@@ -140,7 +130,11 @@ function Users() {
     const CardEditFun = ({ name, user }) => {
       return (
         <CardEdit id="card-edit" className="card-button" title="edit">
-          <PersonNote size="24" onClick={() => editUser(user.id)} />
+          <PersonNote
+            size="24"
+            style={{ color: colors.yellow }}
+            onClick={() => editUser(user.id)}
+          />
         </CardEdit>
       );
     };
@@ -148,7 +142,13 @@ function Users() {
     const CardDeleteFun = ({ name, user }) => {
       return (
         <CardDelete id="card-delete" className="card-button" title="delete">
-          <PersonDelete size="24" onClick={() => removeUser(user.id)} />
+          <PersonDelete
+            size="24"
+            style={{
+              color: colors.pink,
+            }}
+            onClick={() => removeUser(user.id)}
+          />
         </CardDelete>
       );
     };
@@ -157,25 +157,27 @@ function Users() {
       <UserCard
         key={u.id}
         id={u.name}
-        className="user-card font"
-        onMouseEnter={(e) => setHovering(true, u.id)}
-        onMouseLeave={(e) => setHovering(false, u.id)}
+        style={
+          hovering ? { backgroundColor: colors.purple, color: 'white' } : {}
+        }
+        className="user-card"
+        onMouseEnter={(e) => setHovering(true, u)}
+        onMouseLeave={(e) => setHovering(false, u)}
       >
         <UserCardButtonsContainer>
           <UserCardButtons
             id={u.id}
             className="buttons"
-            style={{ display: 'none' }}
-            // style={{ display: 'flex' }}
+            style={hovering ? { display: 'flex' } : { display: 'none' }}
           >
             <CardEditFun name="Edit" user={u} />
             <CardDeleteFun name="Delete" user={u} />
           </UserCardButtons>
         </UserCardButtonsContainer>
 
-        <h5>{u.name}</h5>
-        <h1>{u.title}</h1>
-        <p>{u.years} years</p>
+        <h5 style={hovering ? hoveringStyles : {}}>{u.name}</h5>
+        <h1 style={hovering ? hoveringStyles : {}}>{u.title}</h1>
+        <p style={hovering ? hoveringStyles : {}}>{u.years} years</p>
       </UserCard>
     );
   }
@@ -205,12 +207,38 @@ function Users() {
       style={{
         width: '80%',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: '0px auto',
+        margin: '160px auto',
         fontFamily: 'Barlow Condensed',
+        height: '65vh',
       }}
     >
+      <section className="add-a-developer-box">
+        <p
+          className="linear-pink-purple"
+          style={{
+            borderRadius: 7,
+            width: '50%',
+            fontSize: '2em',
+          }}
+        >
+          Add A Developer
+        </p>
+        <p
+          className="linear-pink-purple plus-sign"
+          style={{
+            fontSize: '7em',
+            position: 'relative',
+            top: '-15px',
+            cursor: 'pointer',
+          }}
+        >
+          +
+        </p>
+      </section>
+
       <section
         className="card-container"
         style={{
@@ -223,9 +251,62 @@ function Users() {
         {allUsers.length === 0 ? (
           <NoUsers />
         ) : (
-          allUsers.map((user) => User(user))
+          allUsers.map((user) => <User u={user} />)
         )}
       </section>
     </section>
+  );
+}
+
+const HeaderSection = styled.section`
+  position: fixed;
+  z-index:5;
+  top:0;
+  left:0;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Barlow Condensed;
+  background-color: ${colors.purple};   
+  box-shadow: 0 1px 10px rgb(0 0 0 / 50%);
+`;
+const HeaderContainer = styled.section`
+  display: flex;
+  width:80%;
+  justify-content: center;
+`;
+const HeaderMain = styled.section`
+  display: flex;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  color: ${colors.black};
+`;
+const HeaderTitle = styled.h1`
+  font-size: 2.5em;
+  padding: 1em;
+  color: white;
+  text-shadow: 3px 3px 10px ${colors.pink}
+`;
+
+function Header({ title }) {
+  return (
+    <HeaderSection className="header-section">
+      <HeaderContainer className="heder-containter">
+        <HeaderMain className="header-main">
+          <HeaderTitle>{title}</HeaderTitle>
+        </HeaderMain>
+      </HeaderContainer>
+    </HeaderSection>
+  );
+}
+
+export default function App() {
+  return (
+    <AppContainer className="app">
+      <Header title="My Developers" />
+      <Users />
+    </AppContainer>
   );
 }
