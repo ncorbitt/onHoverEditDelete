@@ -215,7 +215,7 @@ function Users() {
         height: '65vh',
       }}
     >
-      <section className="add-a-developer-box">
+      <section className="add-a-developer-box" style={{ display: 'none' }}>
         <p
           className="linear-pink-purple"
           style={{
