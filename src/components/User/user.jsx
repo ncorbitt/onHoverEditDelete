@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import Edit from '../Edit/edit.jsx';
-
-import { PersonNote } from '@styled-icons/fluentui-system-filled/PersonNote';
-import { PersonDelete } from '@styled-icons/fluentui-system-filled/PersonDelete';
-
 import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutline';
 import { PersonRemoveOutline } from '@styled-icons/evaicons-outline/PersonRemoveOutline';
 

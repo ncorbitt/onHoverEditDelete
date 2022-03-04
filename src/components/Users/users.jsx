@@ -106,13 +106,13 @@ function Users() {
           Add A Developer
         </p>
         <p
+          onClick={() => createUser(u)}
           className="linear-pink-purple plus-sign"
           style={{
             fontSize: '7em',
             position: 'relative',
             top: '-15px',
             cursor: 'pointer',
-            
           }}
         >
           +
