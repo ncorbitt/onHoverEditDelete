@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutline';
+import { PersonDeleteOutline } from '@styled-icons/evaicons-outline/PersonDeleteOutline';
+import { PersonOutline } from '@styled-icons/evaicons-outline/PersonOutline';
+
+import { UserFunctions } from '../userFunctions.js';
+import { updateUser } from '../userFunctions.js';
 const colors = {
   black: '#000000',
   purple: '#5800FF',
   pink: '#E900FF',
   yellow: '#FFC600',
+};
+
+const PersonAdd = styled(PersonAddOutline)`
+  color: ${colors.yellow};
+`;
+
+const PersonDelete = styled(PersonDeleteOutline)`
+  color: ${colors.pink};
+  opacity: .4;
+`;
+
+const iconStyles = {
+  size: 48,
 };
 
 const EditSection = styled.section`
@@ -27,7 +46,12 @@ const EditContainer = styled.section`
   padding: 1em;
 `;
 const Content = styled.section`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   color: white;
+
   h1 {
     margin:0;
   }
@@ -40,6 +64,38 @@ const Content = styled.section`
 
   #save,#cancel {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const EditUserInfo = styled.section`
+  h3 {
+    letter-spacing: .2em;
+    font-size: 1.5em;
+  }
+
+  input {
+    width: 100%;
+    height:40px;
+    border-radius: 3px;
+    font-size: 1.5em;
+    font-family: Barlow Condensed;  
+    padding-left: 10px;
+  }
+`;
+
+const EditHead = styled.section`
+span:first-child {
+  display: flex;
+  align-items: center;
+}
+`;
+const EditTail = styled.section`
+  #person-delete-icon {
+    background: linear-gradient(180deg, pink, purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 `;
 
@@ -50,6 +106,14 @@ const sectionStyles = {
 };
 
 function Edit({ u, setEditing, editing }) {
+  const theFun = new UserFunctions();
+
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
+  const [title, setTitle] = useState('');
+  const [years, setYears] = useState(0);
+  const [id, setId] = useState(0);
+
   const html = document.getElementsByTagName('html');
 
   // html[0].addEventListener('click', (e) => {
@@ -60,19 +124,28 @@ function Edit({ u, setEditing, editing }) {
   // });
 
   useEffect(() => {
+    if (u.name) {
+      const name = u.name.split(' ');
+      setFName(name[0]);
+      setLName(name[1]);
+      setTitle(u.title);
+      setYears(u.years);
+      setId(u.id);
+    }
+
+    console.log(theFun);
+  }, [fName, lName, title, years]);
+
+  useEffect(() => {
     // Set inEditMode to true
     setEditing(true);
 
     const html = document.getElementsByTagName('html');
 
     // Make html dim fuction
-    function makeHtmlDim() {
-      html[0].style.background = 'rgb(0, 0, 0, 0.9)';
-      html[0].style.pointerEvents = 'none';
-      html[0].zIndex = 20;
-    }
-
-    makeHtmlDim();
+    html[0].style.background = 'rgb(0, 0, 0, 0.9)';
+    html[0].style.pointerEvents = 'none';
+    html[0].zIndex = 0;
 
     // on exit, SetInEditMode to false
     return function cleanup() {
@@ -83,20 +156,81 @@ function Edit({ u, setEditing, editing }) {
     };
   }, [editing]);
 
+  function mEnter(e) {
+    console.log(e);
+    e.target.style.opacity = '1';
+  }
+  function mLeave(e) {
+    e.target.style.opacity = '';
+  }
+
+  function update(id) {
+    console.log('update', id);
+    console.log(theFun.updateUser(id));
+    console.log(theFun.findUser(id));
+  }
+
   return (
     <EditSection className="edit-section">
       <EditContainer className="edit-container">
         <Content className="edit-content">
-          <section style={sectionStyles}>
-            <span>Edit</span> <span id="name">{u.name}</span>
-          </section>
-
-          <section style={sectionStyles}>
-            <span id="save">Save</span>
-            <span id="cancel" onClick={() => setEditing(false)}>
-              Cancel
+          <EditHead style={sectionStyles}>
+            <span>
+              <PersonOutline size={iconStyles.size} />{' '}
             </span>
-          </section>
+            <span id="name">{u.name}</span>
+          </EditHead>
+
+          <EditUserInfo className="edit-user-info">
+            <h3>Firstname</h3>
+            <input
+              type="text"
+              defaultValue={fName}
+              onChange={(e) => setFName(e.target.value)}
+            />
+
+            <h3>Lastname</h3>
+            <input
+              type="text"
+              onChange={(e) => setLName(e.target.value)}
+              defaultValue={lName}
+            />
+
+            <h3>Position title</h3>
+            <input
+              type="text"
+              onChange={(e) => setTitle(e.target.value)}
+              defaultValue={title}
+            />
+
+            <h3>Years </h3>
+            <input
+              type="number"
+              onChange={(e) => setYears(e.target.value)}
+              defaultValue={years}
+            />
+          </EditUserInfo>
+
+          <EditTail style={sectionStyles}>
+            <span
+              id="save"
+              title="save"
+              onClick={() => {
+                update(id);
+              }}
+            >
+              {' '}
+              <PersonAdd size={iconStyles.size} />
+            </span>
+            <span id="cancel" title="cancel" onClick={() => setEditing(false)}>
+              <PersonDelete
+                size={iconStyles.size}
+                id="person-delete-icon"
+                onMouseEnter={mEnter}
+                onMouseLeave={mLeave}
+              />
+            </span>
+          </EditTail>
         </Content>
       </EditContainer>
     </EditSection>

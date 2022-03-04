@@ -3,54 +3,64 @@ import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 
 import User from '../User/user.jsx';
-
 import Edit from '../Edit/edit.jsx';
+import { UserFunctions } from '../userFunctions';
 
 const AddADeveloper = styled.section`
   display: none;
 `;
 
 function Users() {
-  const [allUsers, setUser] = useState([
-    {
-      name: 'Etan Torbict',
-      title: 'Full Stack Developer',
-      years: 3,
-      id: uuidv4(),
-    },
-    {
-      name: 'Maryam Torbict',
-      title: 'UI/UX Developer',
-      years: 3,
-      id: uuidv4(),
-    },
-    {
-      name: 'Atyana Torbict',
-      title: 'UI/UX Developer',
-      years: 1,
-      id: uuidv4(),
-    },
-    {
-      name: 'Ban Torbict',
-      title: 'Game Developer',
-      years: 1,
-      id: uuidv4(),
-    },
-    {
-      name: 'Mac David',
-      title: 'Game Developer',
-      years: 2,
-      id: uuidv4(),
-    },
-  ]);
+  const ufun = UserFunctions();
+  console.log(ufun);
+  // const [allUsers, setUser] = useState([
+  //   {
+  //     name: 'Etan Torbict',
+  //     title: 'Full Stack Developer',
+  //     years: 3,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Maryam Torbict',
+  //     title: 'UI/UX Developer',
+  //     years: 3,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Atyana Torbict',
+  //     title: 'UI/UX Developer',
+  //     years: 1,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Ban Torbict',
+  //     title: 'Game Developer',
+  //     years: 1,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Mac David',
+  //     title: 'Game Developer',
+  //     years: 2,
+  //     id: uuidv4(),
+  //   },
+  // ]);
 
   // const [allUsers, setUser] = useState([]);
-  useEffect(() => {}, [allUsers]);
+  // useEffect(() => {}, [allUsers]);
 
-  const [editing, setEditing] = useState(false);
-  useEffect(() => {
-    console.log(`Editing: ${editing}`);
-  }, [editing]);
+  function setUser(id) {
+    // update allUsers
+    ufun.updateUser(id);
+  }
+  function allUsers() {
+    return ufun.allUsers;
+  }
+
+  useEffect(() => console.log(ufun));
+
+  const [editing, setEditing] = useState(true);
+  useEffect(() => console.log(`Editing: ${editing}`, [editing]));
 
   const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
@@ -129,15 +139,16 @@ function Users() {
           <Edit u={currentUser} setEditing={setEditing} editing={editing} />
         )}
 
-        {allUsers.length === 0 ? (
+        {ufun.allUsers.length === 0 ? (
           <NoUsers />
         ) : (
-          allUsers.map((user) => {
+          ufun.allUsers.map((user) => {
             return (
               <User
                 u={user}
                 setEditing={setEditing}
-                allUsers={allUsers}
+                allUsers={ufun.allUsers}
+                setUser={setUser}
                 setCurrentUser={setCurrentUser}
               />
             );
