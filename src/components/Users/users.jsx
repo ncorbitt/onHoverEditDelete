@@ -10,7 +10,7 @@ const AddADeveloper = styled.section`
   display: block;
 `;
 
-const NoUsersSection = styled.section``;
+const NoUserSection = styled.section``;
 
 function Users() {
   // const [allUsers, setUser] = useState([
@@ -46,6 +46,7 @@ function Users() {
   //   },
   // ]);
 
+
   const [allUsers, setUser] = useState([]);
   useEffect(() => {}, [allUsers]);
 
@@ -55,13 +56,13 @@ function Users() {
   const [creating, setCreating] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  useEffect(() => console.log(currentUser), [currentUser]);
 
+
+  // Components
   function NoUsers() {
     return (
-      <NoUsersSection
+      <NoUserSection
         className="no-users"
         style={{
           width: '100%',
@@ -73,37 +74,11 @@ function Users() {
         }}
       >
         <AddDeveloper />
-      </NoUsersSection>
+      </NoUserSection>
     );
   }
 
-  function findUser(id) {
-    const user = allUsers.filter((user) => user.id === id);
-    return user ? user : 'User not found.';
-  }
-
-  function updateUser(id, payload) {
-    setUser((devs) =>
-      devs.map((user) => {
-        if (user.id === id) {
-          user = payload;
-        }
-        return user;
-      })
-    );
-  }
-
-  function cUser(id, payload) {
-    setUser((devs) =>
-      devs.map((user) => {
-        if (user.id !== id) {
-          user = payload;
-        }
-        return user;
-      })
-    );
   
-
   function AddDeveloper() {
     return (
       <AddADeveloper className="add-a-developer-box">
@@ -125,6 +100,38 @@ function Users() {
       </AddADeveloper>
     );
   }
+  function findUser(id) {
+    const user = allUsers.filter((user) => user.id === id);
+    return user ? user : 'User not found.';
+  }
+
+  //Functions
+
+  // Update
+  function updateUser(id, payload) {
+    setUser((devs) =>
+      devs.map((user) => {
+        if (user.id === id) {
+          user = payload;
+        }
+        return user;
+      })
+    );
+  }
+
+  // Create
+  function cUser(id, payload) {
+    setUser((devs) =>
+      devs.map((user) => {
+        if (user.id !== id) {
+          user = payload;
+        }
+        return user;
+      })
+    );
+  
+
+ 
 
   return (
     <section

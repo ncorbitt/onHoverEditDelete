@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
 import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutline';
 import { PersonDeleteOutline } from '@styled-icons/evaicons-outline/PersonDeleteOutline';
@@ -196,7 +197,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
                   name: `${fName} ${lName}`,
                   title,
                   years,
-                  id,
+                  id: uuidv4()
                 };
                 createUser(id, payload);
                 setCreating(false);
@@ -214,6 +215,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
               />
             </span>
           </CreateTail>
+          
         </Content>
       </CreateContainer>
     </CreateSection>
