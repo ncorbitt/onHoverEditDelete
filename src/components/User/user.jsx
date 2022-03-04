@@ -24,7 +24,7 @@ const colors = {
   yellow: '#FFC600',
 };
 
-function User({ u, setEditing, allUsers, setCurrentUser }) {
+function User({ u, setEditing, allUsers, setUser, setCurrentUser }) {
   const hoveringStyles = {
     textShadow: `3px 3px 10px ${colors.pink}`,
   };
@@ -39,7 +39,7 @@ function User({ u, setEditing, allUsers, setCurrentUser }) {
   }
 
   function removeUser(id) {
-    allUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setUser((users) => users.filter((user) => user.id !== id));
   }
 
   function editUser(id) {

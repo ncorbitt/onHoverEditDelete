@@ -6,46 +6,49 @@ import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
 
 const AddADeveloper = styled.section`
-  display: none;
+  display: block;
 `;
 
-function Users() {
-  const [allUsers, setUser] = useState([
-    {
-      name: 'Etan Torbict',
-      title: 'Full Stack Developer',
-      years: 3,
-      id: uuidv4(),
-    },
-    {
-      name: 'Maryam Torbict',
-      title: 'UI/UX Developer',
-      years: 3,
-      id: uuidv4(),
-    },
-    {
-      name: 'Atyana Torbict',
-      title: 'UI/UX Developer',
-      years: 1,
-      id: uuidv4(),
-    },
-    {
-      name: 'Ban Torbict',
-      title: 'Game Developer',
-      years: 1,
-      id: uuidv4(),
-    },
-    {
-      name: 'Mac David',
-      title: 'Game Developer',
-      years: 2,
-      id: uuidv4(),
-    },
-  ]);
+const NoUsersSection = styled.section``;
 
+function Users() {
+  // const [allUsers, setUser] = useState([
+  //   {
+  //     name: 'Etan Torbict',
+  //     title: 'Full Stack Developer',
+  //     years: 3,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Maryam Torbict',
+  //     title: 'UI/UX Developer',
+  //     years: 3,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Atyana Torbict',
+  //     title: 'UI/UX Developer',
+  //     years: 1,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Ban Torbict',
+  //     title: 'Game Developer',
+  //     years: 1,
+  //     id: uuidv4(),
+  //   },
+  //   {
+  //     name: 'Mac David',
+  //     title: 'Game Developer',
+  //     years: 2,
+  //     id: uuidv4(),
+  //   },
+  // ]);
+
+  const [allUsers, setUser] = useState([]);
   useEffect(() => {}, [allUsers]);
 
-  const [editing, setEditing] = useState(true);
+  const [editing, setEditing] = useState(false);
   // useEffect(() => console.log(`Editing: ${editing}`, [editing]));
 
   const [currentUser, setCurrentUser] = useState({});
@@ -55,7 +58,8 @@ function Users() {
 
   function NoUsers() {
     return (
-      <section
+      <NoUsersSection
+        className="no-users"
         style={{
           background: '#d3d3d38f',
           width: '100%',
@@ -66,9 +70,10 @@ function Users() {
           alignItems: 'center',
         }}
       >
-        <h1 style={{ color: 'grey', fontSize: '7em', margin: 0 }}>NO USERS</h1>
-        <p style={{ color: 'grey', fontSize: '3em' }}>Add some ...</p>
-      </section>
+        <AddDeveloper />
+        {/* <h1 style={{ color: 'grey', fontSize: '7em', margin: 0 }}>NO USERS</h1>
+        <p style={{ color: 'grey', fontSize: '3em' }}>Add some ...</p> */}
+      </NoUsersSection>
     );
   }
 
@@ -96,29 +101,10 @@ function Users() {
     console.log(allUsers);
   }
 
-  return (
-    <section
-      className="card-main"
-      style={{
-        width: '80%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '160px auto',
-        fontFamily: 'Barlow Condensed',
-        height: '65vh',
-      }}
-    >
+  function AddDeveloper() {
+    return (
       <AddADeveloper className="add-a-developer-box">
-        <p
-          className="linear-pink-purple"
-          style={{
-            borderRadius: 7,
-            width: '50%',
-            fontSize: '2em',
-          }}
-        >
+        <p className="linear-pink-purple" style={{ fontSize: '2em' }}>
           Add A Developer
         </p>
         <p
@@ -133,7 +119,25 @@ function Users() {
           +
         </p>
       </AddADeveloper>
+    );
+  }
 
+  return (
+    <section
+      className="card-main"
+      style={{
+        width: '80%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '160px auto',
+        fontFamily: 'Barlow Condensed',
+        height: '65vh',
+      }}
+    >
+      {/* Add a developer */}
+      {/* {<AddDeveloper />} */}
       <section
         className="card-container"
         style={{
