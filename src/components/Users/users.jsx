@@ -4,16 +4,46 @@ import styled from 'styled-components';
 
 import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
-import { useFunctions } from '../useFunctions';
 
 const AddADeveloper = styled.section`
   display: none;
 `;
 
 function Users() {
-  const ufun = new useFunctions();
+  const [allUsers, setUser] = useState([
+    {
+      name: 'Etan Torbict',
+      title: 'Full Stack Developer',
+      years: 3,
+      id: uuidv4(),
+    },
+    {
+      name: 'Maryam Torbict',
+      title: 'UI/UX Developer',
+      years: 3,
+      id: uuidv4(),
+    },
+    {
+      name: 'Atyana Torbict',
+      title: 'UI/UX Developer',
+      years: 1,
+      id: uuidv4(),
+    },
+    {
+      name: 'Ban Torbict',
+      title: 'Game Developer',
+      years: 1,
+      id: uuidv4(),
+    },
+    {
+      name: 'Mac David',
+      title: 'Game Developer',
+      years: 2,
+      id: uuidv4(),
+    },
+  ]);
 
-  // useEffect(() => console.log('UFUN', ufun.allUsers));
+  useEffect(() => {}, [allUsers]);
 
   const [editing, setEditing] = useState(true);
   // useEffect(() => console.log(`Editing: ${editing}`, [editing]));
@@ -40,6 +70,30 @@ function Users() {
         <p style={{ color: 'grey', fontSize: '3em' }}>Add some ...</p>
       </section>
     );
+  }
+
+  function findUser(id) {
+    const user = allUsers.filter((user) => user.id === id);
+    return user ? user : 'User not found.';
+  }
+
+  function updateUser(id, payload) {
+    console.log('UPDATE USER', payload);
+
+    setUser((devs) =>
+      devs.map((user) => {
+        if (user.id === id) {
+          console.log('found', user);
+
+          user = payload;
+
+          console.log('New payload', user);
+        }
+
+        return user;
+      })
+    );
+    console.log(allUsers);
   }
 
   return (
@@ -92,19 +146,24 @@ function Users() {
       >
         {/* Edit component */}
         {editing && (
-          <Edit u={currentUser} setEditing={setEditing} editing={editing} />
+          <Edit
+            u={currentUser}
+            setEditing={setEditing}
+            editing={editing}
+            updateUser={updateUser}
+          />
         )}
 
-        {ufun.allUsers.length === 0 ? (
+        {allUsers.length === 0 ? (
           <NoUsers />
         ) : (
-          ufun.allUsers.map((user) => {
+          allUsers.map((user) => {
             return (
               <User
                 u={user}
                 setEditing={setEditing}
-                allUsers={ufun.allUsers}
-                setUser={ufun.setUser}
+                allUsers={allUsers}
+                setUser={setUser}
                 setCurrentUser={setCurrentUser}
               />
             );

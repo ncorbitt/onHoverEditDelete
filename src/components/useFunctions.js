@@ -39,27 +39,23 @@ export function useFunctions() {
 
   this.allUsers = allUsers;
   this.setUser = setUser;
-}
 
-useFunctions.prototype.allUsers = function () {
-  return this.allUsers;
-};
+  this.findUser = function findUser(id) {
+    console.log('FIND USER', id, allUsers);
+    const user = allUsers.filter((user) => user.id === id);
 
-useFunctions.prototype.findUser = function (id) {
-  console.log('FIND USER');
-  const user = this.allUsers.filter((user) => user.id === id);
-  if (user) {
+    if (user) {
+      console.log('user', user);
+      return user;
+    } else {
+      return 'User not found.';
+    }
+  };
+
+  this.updateUser = function updateUser(id) {
+    console.log('UPDATE USER');
+    let _user = findUser(id);
+    let user = _user[0];
     console.log(user);
-
-    return user;
-  } else {
-    return 'User not found.';
-  }
-};
-
-useFunctions.prototype.updateUser = function (id) {
-  console.log('UPDATE USER', id, this.allUsers, this.findUser(id));
-  let _user = this.findUser(id);
-  let user = _user[0];
-  console.log(user);
-};
+  };
+}

@@ -5,8 +5,6 @@ import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutlin
 import { PersonDeleteOutline } from '@styled-icons/evaicons-outline/PersonDeleteOutline';
 import { PersonOutline } from '@styled-icons/evaicons-outline/PersonOutline';
 
-import { useFunctions } from '../useFunctions.js';
-
 const colors = {
   black: '#000000',
   purple: '#5800FF',
@@ -106,24 +104,25 @@ const sectionStyles = {
   justifyContent: 'space-between',
 };
 
-function Edit({ u, setEditing, editing }) {
-  const uFun = new useFunctions();
+function Edit({ u, setEditing, editing, updateUser }) {
+  const name = u.name !== undefined && u.name.split(' ');
 
-  const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('');
-  const [title, setTitle] = useState('');
-  const [years, setYears] = useState(0);
-  const [id, setId] = useState(0);
+  const [fName, setFName] = useState(name[0]);
+  const [lName, setLName] = useState(name[1]);
+  const [title, setTitle] = useState(u.title);
+  const [years, setYears] = useState(u.years);
+  const [id, setId] = useState(u.id);
+
+  // setFName();
+  // setLName(name[1]);
+  // setTitle(u.title);
+  // setYears(u.years);
+  // setId(u.id);
 
   useEffect(() => {
-    if (u.name) {
-      const name = u.name.split(' ');
-      setFName(name[0]);
-      setLName(name[1]);
-      setTitle(u.title);
-      setYears(u.years);
-      setId(u.id);
-    }
+    console.log(`
+      ${fName} ${lName} ${title} ${years} ${id}
+      `);
   }, [fName, lName, title, years]);
 
   useEffect(() => {
@@ -152,12 +151,6 @@ function Edit({ u, setEditing, editing }) {
   }
   function mLeave(e) {
     e.target.style.opacity = '';
-  }
-
-  function update(id) {
-    console.log('update', id);
-    console.log(uFun.updateUser(id));
-    console.log(uFun.findUser(id));
   }
 
   return (
@@ -206,7 +199,14 @@ function Edit({ u, setEditing, editing }) {
               id="save"
               title="save"
               onClick={() => {
-                update(id);
+                let payload = {
+                  name: `${fName} ${lName}`,
+                  title,
+                  years,
+                  id,
+                };
+                updateUser(id, payload);
+                setEditing(false);
               }}
             >
               {' '}
