@@ -5,6 +5,9 @@ import Edit from '../Edit/edit.jsx';
 import { PersonNote } from '@styled-icons/fluentui-system-filled/PersonNote';
 import { PersonDelete } from '@styled-icons/fluentui-system-filled/PersonDelete';
 
+import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutline';
+import { PersonRemoveOutline } from '@styled-icons/evaicons-outline/PersonRemoveOutline';
+
 import {
   CardEdit,
   UserCardButtonsContainer,
@@ -49,7 +52,7 @@ function User({ u, setEditing, allUsers, setCurrentUser }) {
   const CardEditFun = ({ name, user }) => {
     return (
       <CardEdit id="card-edit" className="card-button" title="edit">
-        <PersonNote
+        <PersonAddOutline
           size="24"
           style={{ color: colors.yellow }}
           onClick={() => editUser(user.id)}
@@ -61,7 +64,7 @@ function User({ u, setEditing, allUsers, setCurrentUser }) {
   const CardDeleteFun = ({ name, user }) => {
     return (
       <CardDelete id="card-delete" className="card-button" title="delete">
-        <PersonDelete
+        <PersonRemoveOutline
           size="24"
           style={{
             color: colors.pink,
