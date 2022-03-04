@@ -4,11 +4,9 @@ import styled from 'styled-components';
 
 import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
-import CreateUser from '../Modal/createUser';
+import CreateUser from '../Modal/createUser.jsx';
 
-const AddADeveloper = styled.section`
-  display: block;
-`;
+const AddADeveloper = styled.section``;
 
 const NoUserSection = styled.section``;
 
@@ -46,9 +44,10 @@ function Users() {
   //   },
   // ]);
 
-
   const [allUsers, setUser] = useState([]);
-  useEffect(() => {}, [allUsers]);
+  useEffect(() => {
+    console.log('Users', allUsers);
+  }, [allUsers]);
 
   const [editing, setEditing] = useState(false);
   // useEffect(() => console.log(`Editing: ${editing}`, [editing]));
@@ -57,7 +56,6 @@ function Users() {
 
   const [currentUser, setCurrentUser] = useState({});
   useEffect(() => console.log(currentUser), [currentUser]);
-
 
   // Components
   function NoUsers() {
@@ -78,15 +76,19 @@ function Users() {
     );
   }
 
-  
   function AddDeveloper() {
     return (
       <AddADeveloper className="add-a-developer-box">
-        <p className="linear-pink-purple" style={{ fontSize: '4em' }}>
+        <p
+          className="linear-pink-purple"
+          style={{
+            fontSize: '4em',
+          }}
+        >
           Add A Developer
         </p>
         <p
-          onClick={() => createUser(u)}
+          onClick={() => setCreating(true)}
           className="linear-pink-purple plus-sign"
           style={{
             fontSize: '7em',
@@ -100,14 +102,44 @@ function Users() {
       </AddADeveloper>
     );
   }
+
+  // function AddDeveloperWhenWeHaveDeveloper() {
+  //   return (
+  //     <AddADeveloper>
+  //       <section>
+  //         <p
+  //           className="linear-pink-purple"
+  //           style={{
+  //             fontSize: '4em',
+  //           }}
+  //         >
+  //           Add A Developer
+  //         </p>
+  //         <p
+  //           onClick={() => setCreating(true)}
+  //           className="linear-pink-purple plus-sign"
+  //           style={{
+  //             fontSize: '7em',
+  //             position: 'relative',
+  //             top: '-15px',
+  //             cursor: 'pointer',
+  //           }}
+  //         >
+  //           +
+  //         </p>
+  //       </section>
+  //     </AddADeveloper>
+  //   );
+  // }
+
   function findUser(id) {
     const user = allUsers.filter((user) => user.id === id);
     return user ? user : 'User not found.';
   }
 
-  //Functions
+  // Functions ******
 
-  // Update
+  // Update user
   function updateUser(id, payload) {
     setUser((devs) =>
       devs.map((user) => {
@@ -119,19 +151,14 @@ function Users() {
     );
   }
 
-  // Create
+  // Create user
   function cUser(id, payload) {
-    setUser((devs) =>
-      devs.map((user) => {
-        if (user.id !== id) {
-          user = payload;
-        }
-        return user;
-      })
-    );
-  
+    console.log('cUser', payload);
 
- 
+    setUser((users) => {
+      return [...users, payload];
+    });
+  }
 
   return (
     <section
@@ -169,19 +196,28 @@ function Users() {
 
         {/* Creating  component */}
         {creating && (
-          <CreateEdit
+          <CreateUser
             u={currentUser}
             setCreating={setCreating}
             creating={creating}
             createUser={cUser}
           />
         )}
+
+        {allUsers.length === 0 ? (
+          <AddDeveloper />
+        ) : (
+          <AddDeveloperWhenWeHaveDeveloper />
+        )}
+
+        {/* Render users/devs */}
         {allUsers.length === 0 ? (
           <NoUsers />
         ) : (
           allUsers.map((user) => {
             return (
               <User
+                key={user.id}
                 u={user}
                 setEditing={setEditing}
                 allUsers={allUsers}

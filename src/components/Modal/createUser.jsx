@@ -106,10 +106,8 @@ const sectionStyles = {
 };
 
 function CreateUser({ u, setCreating, creating, createUser }) {
-
-
   const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('']);
+  const [lName, setLName] = useState('');
   const [title, setTitle] = useState('');
   const [years, setYears] = useState(0);
   const [id, setId] = useState('');
@@ -120,7 +118,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
 
   useEffect(() => {
     // Set inEditing Mode to true
-    setEditing(true);
+    setCreating(true);
 
     const html = document.getElementsByTagName('html');
 
@@ -131,12 +129,12 @@ function CreateUser({ u, setCreating, creating, createUser }) {
 
     // on exit, SetInCreateMode to false
     return function cleanup() {
-      setEditing(false);
+      setCreating(false);
       html[0].style.background = '';
       html[0].style.pointerEvents = '';
       html[0].zIndex = 0;
     };
-  }, [editing]);
+  }, [creating]);
 
   function mEnter(e) {
     console.log(e);
@@ -150,7 +148,6 @@ function CreateUser({ u, setCreating, creating, createUser }) {
     <CreateSection className="edit-section">
       <CreateContainer className="edit-container">
         <Content className="edit-content">
-
           <CreateHead style={sectionStyles}>
             <span>
               <PersonOutline size={iconStyles.size} /> Create
@@ -197,8 +194,11 @@ function CreateUser({ u, setCreating, creating, createUser }) {
                   name: `${fName} ${lName}`,
                   title,
                   years,
-                  id: uuidv4()
+                  id: uuidv4(),
                 };
+
+                console.log('payload', payload);
+
                 createUser(id, payload);
                 setCreating(false);
               }}
@@ -206,7 +206,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
               {' '}
               <PersonAdd size={iconStyles.size} />
             </span>
-            <span id="cancel" title="cancel" onClick={() => setEditing(false)}>
+            <span id="cancel" title="cancel" onClick={() => setCreating(false)}>
               <PersonDelete
                 size={iconStyles.size}
                 id="person-delete-icon"
@@ -215,7 +215,6 @@ function CreateUser({ u, setCreating, creating, createUser }) {
               />
             </span>
           </CreateTail>
-          
         </Content>
       </CreateContainer>
     </CreateSection>
