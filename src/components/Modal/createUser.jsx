@@ -104,19 +104,17 @@ const sectionStyles = {
   justifyContent: 'space-between',
 };
 
-function CreateUser({ u, setEditing, editing, updateUser }) {
-  const name = u.name !== undefined && u.name.split(' ');
+function CreateUser({ u, setCreating, creating, createUser }) {
 
-  const [fName, setFName] = useState(name[0]);
-  const [lName, setLName] = useState(name[1]);
-  const [title, setTitle] = useState(u.title);
-  const [years, setYears] = useState(u.years);
-  const [id, setId] = useState(u.id);
+
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('']);
+  const [title, setTitle] = useState('');
+  const [years, setYears] = useState(0);
+  const [id, setId] = useState('');
 
   useEffect(() => {
-    console.log(`
-      ${fName} ${lName} ${title} ${years} ${id}
-      `);
+    console.log(`${fName} ${lName} ${title} ${years} ${id}`);
   }, [fName, lName, title, years]);
 
   useEffect(() => {
@@ -151,9 +149,10 @@ function CreateUser({ u, setEditing, editing, updateUser }) {
     <CreateSection className="edit-section">
       <CreateContainer className="edit-container">
         <Content className="edit-content">
+
           <CreateHead style={sectionStyles}>
             <span>
-              <PersonOutline size={iconStyles.size} />{' '}
+              <PersonOutline size={iconStyles.size} /> Create
             </span>
             <span id="name">{u.name}</span>
           </CreateHead>
@@ -199,8 +198,8 @@ function CreateUser({ u, setEditing, editing, updateUser }) {
                   years,
                   id,
                 };
-                updateUser(id, payload);
-                setEditing(false);
+                createUser(id, payload);
+                setCreating(false);
               }}
             >
               {' '}

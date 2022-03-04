@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
+import CreateUser from '../Modal/createUser';
 
 const AddADeveloper = styled.section`
   display: block;
@@ -51,6 +52,8 @@ function Users() {
   const [editing, setEditing] = useState(false);
   // useEffect(() => console.log(`Editing: ${editing}`, [editing]));
 
+  const [creating, setCreating] = useState(false);
+
   const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
     console.log(currentUser);
@@ -67,7 +70,6 @@ function Users() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-         
         }}
       >
         <AddDeveloper />
@@ -81,23 +83,26 @@ function Users() {
   }
 
   function updateUser(id, payload) {
-    console.log('UPDATE USER', payload);
-
     setUser((devs) =>
       devs.map((user) => {
         if (user.id === id) {
-          console.log('found', user);
-
           user = payload;
-
-          console.log('New payload', user);
         }
-
         return user;
       })
     );
-    console.log(allUsers);
   }
+
+  function cUser(id, payload) {
+    setUser((devs) =>
+      devs.map((user) => {
+        if (user.id !== id) {
+          user = payload;
+        }
+        return user;
+      })
+    );
+  
 
   function AddDeveloper() {
     return (
@@ -155,6 +160,15 @@ function Users() {
           />
         )}
 
+        {/* Creating  component */}
+        {creating && (
+          <CreateEdit
+            u={currentUser}
+            setCreating={setCreating}
+            creating={creating}
+            createUser={cUser}
+          />
+        )}
         {allUsers.length === 0 ? (
           <NoUsers />
         ) : (
