@@ -61,18 +61,16 @@ function Users() {
       <NoUsersSection
         className="no-users"
         style={{
-          background: '#d3d3d38f',
           width: '100%',
-          height: '98vh',
+          height: 600,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+         
         }}
       >
         <AddDeveloper />
-        {/* <h1 style={{ color: 'grey', fontSize: '7em', margin: 0 }}>NO USERS</h1>
-        <p style={{ color: 'grey', fontSize: '3em' }}>Add some ...</p> */}
       </NoUsersSection>
     );
   }
@@ -104,7 +102,7 @@ function Users() {
   function AddDeveloper() {
     return (
       <AddADeveloper className="add-a-developer-box">
-        <p className="linear-pink-purple" style={{ fontSize: '2em' }}>
+        <p className="linear-pink-purple" style={{ fontSize: '4em' }}>
           Add A Developer
         </p>
         <p
@@ -114,6 +112,7 @@ function Users() {
             position: 'relative',
             top: '-15px',
             cursor: 'pointer',
+            
           }}
         >
           +
@@ -136,16 +135,14 @@ function Users() {
         height: '65vh',
       }}
     >
-      {/* Add a developer */}
-      {/* {<AddDeveloper />} */}
       <section
         className="card-container"
         style={{
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          marginBottom: 30,
           justifyContent: 'center',
+          width: 600,
         }}
       >
         {/* Edit component */}

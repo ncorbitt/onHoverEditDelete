@@ -12,7 +12,7 @@
 }
 
 .linear-pink-purple {
-  background: linear-gradient(180deg, pink, purple);
+  background: linear-gradient(270deg, pink, purple);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -23,14 +23,13 @@
 
 .add-a-developer-box {
   display: flex;
-  width: 25%;
-  margin: 30px 0px;
   justify-content: space-evenly;
   align-items: center;
-  position: fixed;
-  border: 3px solid pink;
-  height: 100px;
-  border-radius: 25px;
+  position: relative;
+  height: 130px;
+  width: 100%;
+  font-variant: petite-caps;
+  border-left: 5px solid pink;
 }
 
 @media (max-width: 630px) {
