@@ -5,8 +5,8 @@ import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutlin
 import { PersonDeleteOutline } from '@styled-icons/evaicons-outline/PersonDeleteOutline';
 import { PersonOutline } from '@styled-icons/evaicons-outline/PersonOutline';
 
-import { UserFunctions } from '../userFunctions.js';
-import { updateUser } from '../userFunctions.js';
+import { useFunctions } from '../useFunctions.js';
+
 const colors = {
   black: '#000000',
   purple: '#5800FF',
@@ -91,6 +91,7 @@ span:first-child {
   align-items: center;
 }
 `;
+
 const EditTail = styled.section`
   #person-delete-icon {
     background: linear-gradient(180deg, pink, purple);
@@ -106,22 +107,13 @@ const sectionStyles = {
 };
 
 function Edit({ u, setEditing, editing }) {
-  const theFun = new UserFunctions();
+  const uFun = new useFunctions();
 
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
   const [title, setTitle] = useState('');
   const [years, setYears] = useState(0);
   const [id, setId] = useState(0);
-
-  const html = document.getElementsByTagName('html');
-
-  // html[0].addEventListener('click', (e) => {
-  //   e.target.style.background = '';
-  //   e.target.style.pointerEvents = '';
-  //   e.target.zIndex = 0;
-  //   setEditing(false);
-  // });
 
   useEffect(() => {
     if (u.name) {
@@ -132,8 +124,6 @@ function Edit({ u, setEditing, editing }) {
       setYears(u.years);
       setId(u.id);
     }
-
-    console.log(theFun);
   }, [fName, lName, title, years]);
 
   useEffect(() => {
@@ -166,8 +156,8 @@ function Edit({ u, setEditing, editing }) {
 
   function update(id) {
     console.log('update', id);
-    console.log(theFun.updateUser(id));
-    console.log(theFun.findUser(id));
+    console.log(uFun.updateUser(id));
+    console.log(uFun.findUser(id));
   }
 
   return (

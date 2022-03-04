@@ -4,63 +4,19 @@ import styled from 'styled-components';
 
 import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
-import { UserFunctions } from '../userFunctions';
+import { useFunctions } from '../useFunctions';
 
 const AddADeveloper = styled.section`
   display: none;
 `;
 
 function Users() {
-  const ufun = UserFunctions();
-  console.log(ufun);
-  // const [allUsers, setUser] = useState([
-  //   {
-  //     name: 'Etan Torbict',
-  //     title: 'Full Stack Developer',
-  //     years: 3,
-  //     id: uuidv4(),
-  //   },
-  //   {
-  //     name: 'Maryam Torbict',
-  //     title: 'UI/UX Developer',
-  //     years: 3,
-  //     id: uuidv4(),
-  //   },
-  //   {
-  //     name: 'Atyana Torbict',
-  //     title: 'UI/UX Developer',
-  //     years: 1,
-  //     id: uuidv4(),
-  //   },
-  //   {
-  //     name: 'Ban Torbict',
-  //     title: 'Game Developer',
-  //     years: 1,
-  //     id: uuidv4(),
-  //   },
-  //   {
-  //     name: 'Mac David',
-  //     title: 'Game Developer',
-  //     years: 2,
-  //     id: uuidv4(),
-  //   },
-  // ]);
+  const ufun = new useFunctions();
 
-  // const [allUsers, setUser] = useState([]);
-  // useEffect(() => {}, [allUsers]);
-
-  function setUser(id) {
-    // update allUsers
-    ufun.updateUser(id);
-  }
-  function allUsers() {
-    return ufun.allUsers;
-  }
-
-  useEffect(() => console.log(ufun));
+  // useEffect(() => console.log('UFUN', ufun.allUsers));
 
   const [editing, setEditing] = useState(true);
-  useEffect(() => console.log(`Editing: ${editing}`, [editing]));
+  // useEffect(() => console.log(`Editing: ${editing}`, [editing]));
 
   const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
@@ -148,7 +104,7 @@ function Users() {
                 u={user}
                 setEditing={setEditing}
                 allUsers={ufun.allUsers}
-                setUser={setUser}
+                setUser={ufun.setUser}
                 setCurrentUser={setCurrentUser}
               />
             );

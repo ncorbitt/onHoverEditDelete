@@ -1,8 +1,8 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export function UserFunctions() {
-  this.allUsers = [
+export function useFunctions() {
+  const [allUsers, setUser] = useState([
     {
       name: 'Etan Torbict',
       title: 'Full Stack Developer',
@@ -33,10 +33,19 @@ export function UserFunctions() {
       years: 2,
       id: uuidv4(),
     },
-  ];
+  ]);
+
+  useEffect(() => {}, [allUsers]);
+
+  this.allUsers = allUsers;
+  this.setUser = setUser;
 }
 
-UserFunctions.prototype.findUser = function (id) {
+useFunctions.prototype.allUsers = function () {
+  return this.allUsers;
+};
+
+useFunctions.prototype.findUser = function (id) {
   console.log('FIND USER');
   const user = this.allUsers.filter((user) => user.id === id);
   if (user) {
@@ -48,7 +57,7 @@ UserFunctions.prototype.findUser = function (id) {
   }
 };
 
-UserFunctions.prototype.updateUser = function (id) {
+useFunctions.prototype.updateUser = function (id) {
   console.log('UPDATE USER', id, this.allUsers, this.findUser(id));
   let _user = this.findUser(id);
   let user = _user[0];
