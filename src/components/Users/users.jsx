@@ -2,17 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 
+// Components
 import User from '../User/user.jsx';
 import Edit from '../Edit/edit.jsx';
 import CreateUser from '../Modal/createUser.jsx';
 
-const AddADeveloper = styled.section``;
-const AddDeveloperWhenWeHaveDeveloper = styled.section`
+// icons
+import { PersonAddOutline } from '@styled-icons/evaicons-outline/PersonAddOutline';
 
+// Styled components
+const AddADeveloper = styled.section``;
+const WhenWeHaveADeveloper = styled.section`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  height: 64px;
+  width: 100%;
+  font-variant: petite-caps;
 `;
+// const WhenWeHaveADeveloper = styled.section`
+//   font-variant: petite-caps;
+// `;
 const NoUserSection = styled.section``;
 const CardMain = styled.section``;
 const CardContainer = styled.section``;
+
+/**
+ * The actual function Users
+ *
+ *
+ *
+ */
 
 function Users() {
   // const [allUsers, setUser] = useState([
@@ -89,19 +110,13 @@ function Users() {
             fontSize: '4em',
           }}
         >
-          Add A Developer
-        </p>
-        <p
-          onClick={() => setCreating(true)}
-          className="linear-pink-purple plus-sign"
-          style={{
-            fontSize: '7em',
-            position: 'relative',
-            top: '-15px',
-            cursor: 'pointer',
-          }}
-        >
-          +
+          <PersonAddOutline
+            className="person-add-outline"
+            size=""
+            onClick={() => setCreating(true)}
+            // onMouseEnter={(e) => (e.target.style.color = '#E900FF')}
+            // onMouseLeave={(e) => (e.target.style.color = 'pink')}
+          />
         </p>
       </AddADeveloper>
     );
@@ -109,28 +124,13 @@ function Users() {
 
   function AddDeveloperWhenWeHaveDeveloper() {
     return (
-      <AddDeveloperWhenWeHaveDeveloper className="AddDeveloperWhenWeHaveDeveloper">
-        <p
-          className="linear-pink-purple"
-          style={{
-            fontSize: '4em',
-          }}
-        >
-          Add A Developer
-        </p>
-        <p
+      <WhenWeHaveADeveloper>
+        <PersonAddOutline
+          className="WhenWeHaveADeveloper"
+          size=""
           onClick={() => setCreating(true)}
-          className="linear-pink-purple plus-sign"
-          style={{
-            fontSize: '7em',
-            position: 'relative',
-            top: '-15px',
-            cursor: 'pointer',
-          }}
-        >
-          +
-        </p>
-      </AddDeveloperWhenWeHaveDeveloper>
+        />
+      </WhenWeHaveADeveloper>
     );
   }
 
@@ -170,13 +170,41 @@ function Users() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         margin: '160px auto',
         fontFamily: 'Barlow Condensed',
         height: '65vh',
       }}
     >
-      {allUsers.length > 0 && <AddDeveloperWhenWeHaveDeveloper />}
+      <section
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: 100,
+        }}
+      >
+        {allUsers.length > 0 && <AddDeveloperWhenWeHaveDeveloper />}
+      </section>
+
+      {/* Edit component */}
+      {editing && (
+        <Edit
+          u={currentUser}
+          setEditing={setEditing}
+          editing={editing}
+          updateUser={updateUser}
+        />
+      )}
+
+      {/* Creating  component */}
+      {creating && (
+        <CreateUser
+          u={currentUser}
+          setCreating={setCreating}
+          creating={creating}
+          createUser={cUser}
+        />
+      )}
 
       <CardContainer
         className="card-container"
@@ -188,26 +216,6 @@ function Users() {
           width: '100%',
         }}
       >
-        {/* Edit component */}
-        {editing && (
-          <Edit
-            u={currentUser}
-            setEditing={setEditing}
-            editing={editing}
-            updateUser={updateUser}
-          />
-        )}
-
-        {/* Creating  component */}
-        {creating && (
-          <CreateUser
-            u={currentUser}
-            setCreating={setCreating}
-            creating={creating}
-            createUser={cUser}
-          />
-        )}
-
         {/* Render users/devs */}
         {allUsers.length === 0 ? (
           <NoUsers />
