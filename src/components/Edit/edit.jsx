@@ -27,7 +27,7 @@ const iconStyles = {
 
 const EditSection = styled.section`
   width: 25% ;
-  height: 75% ;
+  height: 100% ;
   background: black ;
   display: flex ;
   justify-content: center;
@@ -35,6 +35,7 @@ const EditSection = styled.section`
   position: absolute;
   border-radius: 7px ;
   pointer-events: auto;
+  top: -50px;
 `;
 const EditContainer = styled.section`
   background-color: #5800ff;

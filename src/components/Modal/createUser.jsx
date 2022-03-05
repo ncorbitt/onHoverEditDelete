@@ -28,12 +28,13 @@ const iconStyles = {
 
 const CreateSection = styled.section`
   width: 25% ;
-  height: 75% ;
+  height: 100% ;
   background: black ;
   display: flex ;
   justify-content: center;
   z-index: 100 ;
   position: absolute;
+  top: -50px;
   border-radius: 7px ;
   pointer-events: auto;
 `;

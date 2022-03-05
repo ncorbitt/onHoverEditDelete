@@ -174,13 +174,17 @@ function Users() {
         margin: '160px auto',
         fontFamily: 'Barlow Condensed',
         height: '65vh',
+        position: 'relative',
+        top: '100px',
       }}
     >
       <section
+        className="weHaveADevSection"
         style={{
-          position: 'relative',
-          width: '100%',
-          height: 100,
+          position: 'fixed',
+          width: '80%',
+          height: 50,
+          top: 115,
         }}
       >
         {allUsers.length > 0 && <AddDeveloperWhenWeHaveDeveloper />}

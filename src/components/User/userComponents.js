@@ -5,7 +5,7 @@ export const UserCard = styled.section`
   flex-direction: column;
   flex-wrap: wrap;
   flex: 1 1 auto;
-  min-width:200px;
+  min-width:300px;
   // border: 3px solid pink;
   box-shadow: 0px 0px 1px 1px rgb(0,0,0, 0.4);
   border-radius: 7px;
