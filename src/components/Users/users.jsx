@@ -7,8 +7,12 @@ import Edit from '../Edit/edit.jsx';
 import CreateUser from '../Modal/createUser.jsx';
 
 const AddADeveloper = styled.section``;
+const AddDeveloperWhenWeHaveDeveloper = styled.section`
 
+`;
 const NoUserSection = styled.section``;
+const CardMain = styled.section``;
+const CardContainer = styled.section``;
 
 function Users() {
   // const [allUsers, setUser] = useState([
@@ -103,34 +107,32 @@ function Users() {
     );
   }
 
-  // function AddDeveloperWhenWeHaveDeveloper() {
-  //   return (
-  //     <AddADeveloper>
-  //       <section>
-  //         <p
-  //           className="linear-pink-purple"
-  //           style={{
-  //             fontSize: '4em',
-  //           }}
-  //         >
-  //           Add A Developer
-  //         </p>
-  //         <p
-  //           onClick={() => setCreating(true)}
-  //           className="linear-pink-purple plus-sign"
-  //           style={{
-  //             fontSize: '7em',
-  //             position: 'relative',
-  //             top: '-15px',
-  //             cursor: 'pointer',
-  //           }}
-  //         >
-  //           +
-  //         </p>
-  //       </section>
-  //     </AddADeveloper>
-  //   );
-  // }
+  function AddDeveloperWhenWeHaveDeveloper() {
+    return (
+      <AddDeveloperWhenWeHaveDeveloper className="AddDeveloperWhenWeHaveDeveloper">
+        <p
+          className="linear-pink-purple"
+          style={{
+            fontSize: '4em',
+          }}
+        >
+          Add A Developer
+        </p>
+        <p
+          onClick={() => setCreating(true)}
+          className="linear-pink-purple plus-sign"
+          style={{
+            fontSize: '7em',
+            position: 'relative',
+            top: '-15px',
+            cursor: 'pointer',
+          }}
+        >
+          +
+        </p>
+      </AddDeveloperWhenWeHaveDeveloper>
+    );
+  }
 
   function findUser(id) {
     const user = allUsers.filter((user) => user.id === id);
@@ -161,7 +163,7 @@ function Users() {
   }
 
   return (
-    <section
+    <CardMain
       className="card-main"
       style={{
         width: '80%',
@@ -174,14 +176,16 @@ function Users() {
         height: '65vh',
       }}
     >
-      <section
+      {allUsers.length > 0 && <AddDeveloperWhenWeHaveDeveloper />}
+
+      <CardContainer
         className="card-container"
         style={{
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          width: 600,
+          width: '100%',
         }}
       >
         {/* Edit component */}
@@ -204,12 +208,6 @@ function Users() {
           />
         )}
 
-        {allUsers.length === 0 ? (
-          <AddDeveloper />
-        ) : (
-          <AddDeveloperWhenWeHaveDeveloper />
-        )}
-
         {/* Render users/devs */}
         {allUsers.length === 0 ? (
           <NoUsers />
@@ -227,8 +225,8 @@ function Users() {
             );
           })
         )}
-      </section>
-    </section>
+      </CardContainer>
+    </CardMain>
   );
 }
 
