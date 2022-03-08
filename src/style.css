@@ -67,11 +67,11 @@
   font-variant: petite-caps;
 }
 
-@media (min-width: 320px) {
+/* @media (min-width: 320px) {
   .create-section {
     width: 100%;
   }
-}
+}*/
 
 @media (min-width: 400px) {
   .card-main {
@@ -80,6 +80,7 @@
   }
 }
 
+/* 
 @media (min-width: 630px) {
   .card-main {
     position: relative;
@@ -95,12 +96,12 @@
 
 @media (min-width: 1024px) {
   .create-section {
-    width: 40%;
+    width: 40% !important;
   }
 }
 
 @media (min-width: 1440px) {
   .create-section {
-    width: 25%;
+    width: 25% !important;
   }
-}
+} */

@@ -26,16 +26,17 @@ const iconStyles = {
 };
 
 const EditSection = styled.section`
-  width: 100% ;
-  height: 100% ;
-  background: black ;
-  display: flex ;
-  justify-content: center;
-  z-index: 100 ;
-  position: absolute;
-  border-radius: 7px ;
-  pointer-events: auto;
-  top: -50px;
+width: fit-content ;
+// height: 100% ;
+background: black ;
+display: flex ;
+justify-content: center;
+z-index: 100 ;
+position: absolute;
+top: -50px;
+border-radius: 7px ;
+pointer-events: auto;
+z-index: 1;
 `;
 const EditContainer = styled.section`
   background-color: #5800ff;
