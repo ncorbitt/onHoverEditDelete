@@ -27,8 +27,8 @@ const iconStyles = {
 };
 
 const CreateSection = styled.section`
-  width: 25% ;
-  height: 100% ;
+  width: fit-content ;
+  // height: 100% ;
   background: black ;
   display: flex ;
   justify-content: center;
@@ -37,7 +37,8 @@ const CreateSection = styled.section`
   top: -50px;
   border-radius: 7px ;
   pointer-events: auto;
-`;
+  z-index: 1;
+  `;
 const CreateContainer = styled.section`
   background-color: #5800ff;
   width: 95%;
@@ -124,7 +125,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
     const html = document.getElementsByTagName('html');
 
     // Make html dim fuction
-    html[0].style.background = 'rgb(0, 0, 0, 0.9)';
+    // html[0].style.background = 'rgb(0, 0, 0, 0.9)';
     html[0].style.pointerEvents = 'none';
     html[0].zIndex = 0;
 
@@ -134,6 +135,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
       html[0].style.background = '';
       html[0].style.pointerEvents = '';
       html[0].zIndex = 0;
+      console.log('Clean up');
     };
   }, [creating]);
 
@@ -146,9 +148,9 @@ function CreateUser({ u, setCreating, creating, createUser }) {
   }
 
   return (
-    <CreateSection className="edit-section">
-      <CreateContainer className="edit-container">
-        <Content className="edit-content">
+    <CreateSection className="create-section">
+      <CreateContainer className="create-container">
+        <Content className="credit-content">
           <CreateHead style={sectionStyles}>
             <span>
               <PersonOutline size={iconStyles.size} /> Create
@@ -156,7 +158,7 @@ function CreateUser({ u, setCreating, creating, createUser }) {
             <span id="name">{u.name}</span>
           </CreateHead>
 
-          <CreateUserInfo className="edit-user-info">
+          <CreateUserInfo className="create-user-info">
             <h3>Firstname</h3>
             <input
               type="text"

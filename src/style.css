@@ -63,20 +63,44 @@
   align-items: center;
   position: relative;
   height: 130px;
-  width: 50%;
+  width: auto;
   font-variant: petite-caps;
 }
 
-@media (max-width: 630px) {
+@media (min-width: 320px) {
+  .create-section {
+    width: 100%;
+  }
+}
+
+@media (min-width: 400px) {
+  .card-main {
+    position: relative;
+    top: 500px;
+  }
+}
+
+@media (min-width: 630px) {
   .card-main {
     position: relative;
     top: 300px;
   }
 }
 
-@media (max-width: 400px) {
-  .card-main {
-    position: relative;
-    top: 500px;
+@media (min-width: 768px) {
+  .create-section {
+    width: 15%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .create-section {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .create-section {
+    width: 25%;
   }
 }
