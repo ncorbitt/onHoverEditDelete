@@ -98,6 +98,8 @@ const EditTail = styled.section`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  padding: 0.5em 0em;
 `;
 
 const sectionStyles = {
@@ -134,7 +136,7 @@ function Edit({ u, setEditing, editing, updateUser }) {
     const html = document.getElementsByTagName('html');
 
     // Make html dim fuction
-    html[0].style.background = 'rgb(0, 0, 0, 0.9)';
+    // html[0].style.background = 'rgb(0, 0, 0, 0.9)';
     html[0].style.pointerEvents = 'none';
     html[0].zIndex = 0;
 
@@ -161,7 +163,7 @@ function Edit({ u, setEditing, editing, updateUser }) {
         <Content className="edit-content">
           <EditHead style={sectionStyles}>
             <span>
-              <PersonOutline size={iconStyles.size} />{' '}
+              <PersonOutline size={iconStyles.size} /> Edit
             </span>
             <span id="name">{u.name}</span>
           </EditHead>

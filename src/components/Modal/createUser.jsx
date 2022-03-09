@@ -99,6 +99,8 @@ const CreateTail = styled.section`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  padding: 0.5em 0em;
 `;
 
 const sectionStyles = {
@@ -136,6 +138,8 @@ function CreateUser({ u, setCreating, creating, createUser }) {
       html[0].style.pointerEvents = '';
       html[0].zIndex = 0;
       console.log('Clean up');
+
+      setFName('');
     };
   }, [creating]);
 

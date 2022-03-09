@@ -93,6 +93,7 @@
     width: 15%;
   }
 }
+*/
 
 @media (min-width: 1024px) {
   .create-section {
@@ -101,7 +102,8 @@
 }
 
 @media (min-width: 1440px) {
+  .edit-section,
   .create-section {
-    width: 25% !important;
+    width: 30% !important;
   }
-} */
+}
